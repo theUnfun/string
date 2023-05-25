@@ -51,10 +51,11 @@ namespace my_string {
 		friend String operator+(const String& lhs, const String& rhs);
 
 	private:
-
 		size_t length_ = 0;
 
 		RawMemory data_;
+
+		static String ConcatenateStrings(const String& lhs, const String& rhs);
 
 	};
 

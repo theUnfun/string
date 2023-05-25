@@ -1,13 +1,10 @@
 #include "mystring.h"
 #include <string.h>
 
-#include <iostream>
-
 namespace my_string {
 
 	RawMemory::RawMemory(size_t size)
 		: data_(new char[size]) {
-		std::cout << "videlil " << size << " pamyuati" << std::endl;
 	}
 
 	RawMemory::~RawMemory() {
@@ -69,14 +66,7 @@ namespace my_string {
 	}
 
 	String& String::operator+=(const String& other) {
-		size_t new_length = length_ + other.length_;
-		RawMemory temp(new_length + 1);
-
-		strcpy_s(temp.GetAddress(), new_length + 1, data_.GetAddress());
-		strcpy_s(temp.GetAddress() + length_, new_length - length_ + 1, other.data_.GetAddress());
-
-		data_.Swap(temp);
-		my_swap(length_, new_length);
+		*this = ConcatenateStrings(*this, other);
 		return *this;
 	}
 
@@ -94,10 +84,11 @@ namespace my_string {
 	}
 
 	String operator+(const String& lhs, const String& rhs) {
-		//String result(lhs);
-		//result += rhs;
-		//return result;
+		return String::ConcatenateStrings(lhs, rhs);
+	}
 
+
+	String String::ConcatenateStrings(const String& lhs, const String& rhs) {
 		String result;
 		size_t new_length = lhs.length_ + rhs.length_;
 		RawMemory temp(new_length + 1);
