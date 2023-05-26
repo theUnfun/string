@@ -30,8 +30,6 @@ namespace my_string {
 
 		String(const char* str);
 
-		String(const char* str, size_t size);
-
 		String(const String& other);
 
 		String(String&& other) noexcept;
@@ -48,6 +46,8 @@ namespace my_string {
 
 		size_t length() const;
 
+		bool empty() const;
+
 		friend String operator+(const String& lhs, const String& rhs);
 
 	private:
@@ -60,12 +60,5 @@ namespace my_string {
 	};
 
 	String operator+(const String& lhs, const String& rhs);
-
-	template <class T>
-	void my_swap(T& left, T& right) noexcept {
-		T temp = left;
-		left = right;
-		right = temp;
-	}
 
 } //namespace String
